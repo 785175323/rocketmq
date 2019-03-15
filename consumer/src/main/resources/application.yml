@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+rocketmq:
+  # \u6D88\u8D39\u8005\u914D\u7F6E
+  producer:
+    groupName: consumer
+    namesrvAddr: rocketmq.kakuiwong.cn:9876
+    default: false
