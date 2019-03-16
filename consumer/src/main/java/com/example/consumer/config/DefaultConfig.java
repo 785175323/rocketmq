@@ -27,20 +27,6 @@ import java.util.Set;
 @Configuration
 public class DefaultConfig {
 
-    @Resource
-    private RocketmqConfig rocketmqConfig;
-
-    @Bean
-    public DefaultMQPullConsumer defaultProducer() throws MQClientException {
-        DefaultMQPullConsumer d = new DefaultMQPullConsumer(rocketmqConfig.getGroupName());
-        d.setRegisterTopics(new HashSet() {{
-            add("topic");
-        }});
-        d.setNamesrvAddr(rocketmqConfig.getNamesrvAddr());
-        return d;
-    }
-
-
     @Bean
     public HttpMessageConverters fastJsonHttpMessageConverters() {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();

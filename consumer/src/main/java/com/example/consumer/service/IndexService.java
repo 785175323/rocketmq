@@ -17,11 +17,4 @@ import java.util.Set;
 @Service
 public class IndexService {
 
-    @Autowired
-    DefaultMQPullConsumer defaultMQPullConsumer;
-
-    public void consumer() throws MQClientException {
-
-    }
-
 }

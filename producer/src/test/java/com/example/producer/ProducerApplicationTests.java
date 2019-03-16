@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class ProducerApplicationTests {
         producer.setVipChannelEnabled(false);
         producer.setRetryTimesWhenSendAsyncFailed(10);
         producer.start();
-        Message m = new Message("topic", "tags", "啦啦啦啦".getBytes("utf-8"));
+        Message m = new Message("topic", "tags", "我测试一下".getBytes("utf-8"));
         producer.send(m);
     }
 
@@ -70,5 +72,10 @@ public class ProducerApplicationTests {
         //调用start()方法启动consumer
         consumer.start();
         System.out.println("Consumer Started....");
+    }
+
+    @Test
+    public void tt(){
+        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     }
 }

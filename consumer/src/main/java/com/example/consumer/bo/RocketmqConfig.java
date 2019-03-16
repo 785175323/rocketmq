@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "rocketmq.producer")
+@ConfigurationProperties(prefix = "rocketmq.consumer")
 public class RocketmqConfig {
 
     private String namesrvAddr;

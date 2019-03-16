@@ -14,12 +14,5 @@ import javax.annotation.Resource;
 @RestController
 public class IndexController {
 
-    @Resource
-    private IndexService indexService;
-    @Resource
-    RocketmqConfig rocketmqConfig;
-
-
-
 
 }
