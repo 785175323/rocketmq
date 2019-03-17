@@ -4,4 +4,4 @@ server:
 rocketmq:
   consumer:
     groupName: consumer
-    namesrvAddr: 123.207.167.160:9876
+    namesrvAddr: rocketmq.kakuiwong.cn:9876

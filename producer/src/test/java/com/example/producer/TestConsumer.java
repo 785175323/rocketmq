@@ -1,37 +1,22 @@
-package com.example.consumer.listener;
+package com.example.producer;
 
-import com.example.consumer.bo.RocketmqConfig;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.*;
-import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;
-import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueByMachineRoom;
+import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.common.MixAll;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
-import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Component("orderL")
-public class OrderListener {
-
-    @Resource
-    private RocketmqConfig rocketmqConfig;
+public class TestConsumer {
 
 
-    @PostConstruct
-    public void defaultConsumer() throws MQClientException {
-        System.err.println("init OrderMQPushConsumer");
-        DefaultMQPushConsumer defaultMQPushConsumer = new DefaultMQPushConsumer("order");
-        defaultMQPushConsumer.setNamesrvAddr(rocketmqConfig.getNamesrvAddr());
+    public static void main(String[] args) throws MQClientException {
+        DefaultMQPushConsumer defaultMQPushConsumer = new DefaultMQPushConsumer("order1");
+        defaultMQPushConsumer.setNamesrvAddr("123.207.167.160:9876");
         defaultMQPushConsumer.subscribe("order", "order_0");
         defaultMQPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         defaultMQPushConsumer.setMessageModel(MessageModel.CLUSTERING);

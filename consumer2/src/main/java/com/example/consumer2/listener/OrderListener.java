@@ -1,12 +1,12 @@
-package com.example.consumer.listener;
+package com.example.consumer2.listener;
 
-import com.example.consumer.bo.RocketmqConfig;
+import com.example.consumer2.bo.RocketmqConfig;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.*;
+import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;
-import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueByMachineRoom;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.common.MixAll;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
@@ -16,9 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component("orderL")
 public class OrderListener {
@@ -26,13 +24,12 @@ public class OrderListener {
     @Resource
     private RocketmqConfig rocketmqConfig;
 
-
     @PostConstruct
     public void defaultConsumer() throws MQClientException {
-        System.err.println("init OrderMQPushConsumer");
+        System.err.println("init OrderMQPushConsumer2");
         DefaultMQPushConsumer defaultMQPushConsumer = new DefaultMQPushConsumer("order");
         defaultMQPushConsumer.setNamesrvAddr(rocketmqConfig.getNamesrvAddr());
-        defaultMQPushConsumer.subscribe("order", "order_0");
+        defaultMQPushConsumer.subscribe("order", "*");
         defaultMQPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         defaultMQPushConsumer.setMessageModel(MessageModel.CLUSTERING);
         defaultMQPushConsumer.registerMessageListener(new MessageListenerOrderly() {
@@ -41,7 +38,7 @@ public class OrderListener {
                 try {
                     Thread.sleep(100);
                     for (MessageExt messageExt : list) {
-                        System.out.println("顺序消费消息1: "
+                        System.out.println("顺序消费消息2: "
                                 + new String(messageExt.getBody())
                                 + "  " + "topic:" + messageExt.getTopic()
                                 + "   " + "tags:" + messageExt.getTags());

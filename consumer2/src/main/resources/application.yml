@@ -1,7 +1,7 @@
 server:
-  port: 8080
+  port: 8082
 
 rocketmq:
-  producer:
-    groupName: producer
+  consumer:
+    groupName: consumer
     namesrvAddr: rocketmq.kakuiwong.cn:9876

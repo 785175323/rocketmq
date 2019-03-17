@@ -1,6 +1,6 @@
-package com.example.consumer.listener;
+package com.example.consumer2.listener;
 
-import com.example.consumer.bo.RocketmqConfig;
+import com.example.consumer2.bo.RocketmqConfig;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -21,7 +21,7 @@ public class DefaultListener {
 
     @PostConstruct
     public void defaultConsumer() throws MQClientException {
-        System.err.println("init defaultMQPushConsumer");
+        System.err.println("init defaultMQPushConsumer2");
         DefaultMQPushConsumer defaultMQPushConsumer = new DefaultMQPushConsumer("default");
         defaultMQPushConsumer.setNamesrvAddr(rocketmqConfig.getNamesrvAddr());
         defaultMQPushConsumer.subscribe("default", "*");
@@ -31,7 +31,7 @@ public class DefaultListener {
                 try {
                     Thread.sleep(100);
                     for (MessageExt messageExt : list) {
-                        System.out.println("普通消费消息1: "
+                        System.out.println("普通消费消息2: "
                                 + new String(messageExt.getBody())
                                 + "  " + "topic:" + messageExt.getTopic()
                                 + "   " + "tags:" + messageExt.getTags());
