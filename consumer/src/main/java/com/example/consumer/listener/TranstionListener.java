@@ -1,6 +1,8 @@
 package com.example.consumer.listener;
 
 import com.example.consumer.bo.RocketmqConfig;
+import com.example.consumer.socket.MyWebSocketServer2;
+import com.example.consumer.socket.MyWebSocketServer3;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -8,9 +10,11 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 @Component("transtionL")
@@ -34,9 +38,27 @@ public class TranstionListener {
                                 + new String(messageExt.getBody())
                                 + "  " + "topic:" + messageExt.getTopic()
                                 + "   " + "tags:" + messageExt.getTags());
+                        if (!CollectionUtils.isEmpty(MyWebSocketServer2.webSocketSet)) {
+                            MyWebSocketServer3.webSocketSet.forEach(w -> {
+                                try {
+                                    w.sendMessage("接收成功" + new String(messageExt.getBody()));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
                     }
                     return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                 } catch (Exception e) {
+                    if (!CollectionUtils.isEmpty(MyWebSocketServer2.webSocketSet)) {
+                        MyWebSocketServer3.webSocketSet.forEach(w -> {
+                            try {
+                                w.sendMessage("接收失败");
+                            } catch (IOException ee) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
             }

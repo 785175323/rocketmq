@@ -26,8 +26,8 @@ public class IndexService {
     public TransactionSendResult transactionSend(String str) throws UnsupportedEncodingException, MQClientException {
         Message m = new Message("transaction", "tags", "1", str.getBytes("utf-8"));
 
-        m.putUserProperty(MessageConst.PROPERTY_TRANSACTION_CHECK_TIMES,"1");
-        m.putUserProperty(MessageConst.PROPERTY_CHECK_IMMUNITY_TIME_IN_SECONDS,"120");
+       // m.putUserProperty(MessageConst.PROPERTY_TRANSACTION_CHECK_TIMES,"1");
+       // m.putUserProperty(MessageConst.PROPERTY_CHECK_IMMUNITY_TIME_IN_SECONDS,"120");
 
         TransactionSendResult transactionSendResult = transactionMQProducer.sendMessageInTransaction(m, null);
         return transactionSendResult;

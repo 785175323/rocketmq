@@ -1,6 +1,7 @@
 package com.example.consumer.listener;
 
 import com.example.consumer.bo.RocketmqConfig;
+import com.example.consumer.socket.MyWebSocketServer;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -8,9 +9,11 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 @Component("defalutL")
@@ -29,12 +32,22 @@ public class DefaultListener {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                     for (MessageExt messageExt : list) {
-                        System.out.println("普通消费消息1: "
+                        String msg = "普通消费消息1: "
                                 + new String(messageExt.getBody())
                                 + "  " + "topic:" + messageExt.getTopic()
-                                + "   " + "tags:" + messageExt.getTags());
+                                + "   " + "tags:" + messageExt.getTags();
+                        System.out.println(msg);
+                        if (!CollectionUtils.isEmpty(MyWebSocketServer.webSocketSet)) {
+                            MyWebSocketServer.webSocketSet.forEach(w -> {
+                                try {
+                                    w.sendMessage(new String(messageExt.getBody()));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
                     }
                     return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                 } catch (Exception e) {

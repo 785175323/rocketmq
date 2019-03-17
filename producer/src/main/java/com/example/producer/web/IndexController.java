@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,27 +80,8 @@ public class IndexController {
     @GetMapping("order_send")
     public Object orderSend() throws Exception {
         for (int i = 0; i < 10; i++) {
-            Message m = new Message("order", "order_0", i + "", ("order_0--" + i).getBytes("utf-8"));
-            SendResult send = defaultMQProducer.send(m, new MessageQueueSelector() {
-                @Override
-                public MessageQueue select(List<MessageQueue> list, Message message, Object o) {
-                    int id = (int) o;
-                   // int index = id % list.size();
-                    return list.get(id);
-                }
-            }, 0);
-        }
-
-        for (int i = 0; i < 10; i++) {
-            Message m = new Message("order", "order_0", i + "", ("order_1--" + i).getBytes("utf-8"));
-            SendResult send = defaultMQProducer.send(m, new MessageQueueSelector() {
-                @Override
-                public MessageQueue select(List<MessageQueue> list, Message message, Object o) {
-                    int id = (int) o;
-                    // int index = id % list.size();
-                    return list.get(id);
-                }
-            }, 1);
+            Message m = new Message("order", "order_0", i + "", String.valueOf(i).getBytes("utf-8"));
+            SendResult send = defaultMQProducer.send(m);
         }
         return "ok";
     }
