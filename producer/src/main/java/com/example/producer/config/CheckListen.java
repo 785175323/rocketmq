@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 @Component
 public class CheckListen implements TransactionListener {
 
@@ -29,7 +28,8 @@ public class CheckListen implements TransactionListener {
                 }
             });
         }
-        return LocalTransactionState.UNKNOW;
+        int i = IndexController.adder.intValue();
+        return i == 0 ? LocalTransactionState.UNKNOW : LocalTransactionState.COMMIT_MESSAGE;
     }
 
     @Override
@@ -45,7 +45,6 @@ public class CheckListen implements TransactionListener {
             });
         }
         System.out.println(format);
-        int i = IndexController.adder.intValue();
-        return i == 0 ? LocalTransactionState.UNKNOW : LocalTransactionState.COMMIT_MESSAGE;
+        return LocalTransactionState.COMMIT_MESSAGE;
     }
 }
