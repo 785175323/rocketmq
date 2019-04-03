@@ -1,9 +1,11 @@
 package com.example.consumer.listener;
 
-import com.example.consumer.bo.RocketmqConfig;
-import com.example.consumer.config.MyAllo;
-import com.example.consumer.socket.MyWebSocketServer2;
-import com.example.consumer.socket.MyWebSocketServer3;
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
@@ -15,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.io.IOException;
-import java.util.List;
+import com.example.consumer.bo.RocketmqConfig;
+import com.example.consumer.config.MyAllo;
+import com.example.consumer.socket.MyWebSocketServer2;
+import com.example.consumer.socket.MyWebSocketServer3;
 
 @Component("orderL")
 public class OrderListener {

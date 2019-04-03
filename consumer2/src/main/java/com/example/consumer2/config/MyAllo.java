@@ -1,11 +1,11 @@
 package com.example.consumer2.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.rocketmq.client.consumer.AllocateMessageQueueStrategy;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class MyAllo implements AllocateMessageQueueStrategy {

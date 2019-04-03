@@ -1,15 +1,15 @@
 package com.example.producer.service;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.annotation.Resource;
+
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.common.message.MessageConst;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @Auther: gaoyang

@@ -1,7 +1,10 @@
 package com.example.consumer.listener;
 
-import com.example.consumer.bo.RocketmqConfig;
-import com.example.consumer.socket.MyWebSocketServer;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -11,9 +14,8 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import java.util.List;
+import com.example.consumer.bo.RocketmqConfig;
+import com.example.consumer.socket.MyWebSocketServer;
 
 @Component("defalutL")
 public class DefaultListener {

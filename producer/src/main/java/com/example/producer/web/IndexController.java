@@ -1,7 +1,11 @@
 package com.example.producer.web;
 
-import com.example.producer.bean.bo.RocketmqConfig;
-import com.example.producer.service.IndexService;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.LongAdder;
+
+import javax.annotation.Resource;
+
 import org.apache.rocketmq.client.producer.*;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageQueue;
@@ -9,10 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.LongAdder;
+import com.example.producer.bean.bo.RocketmqConfig;
+import com.example.producer.service.IndexService;
 
 /**
  * @Auther: gaoyang
