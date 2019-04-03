@@ -1,9 +1,9 @@
-package com.example.consumer.listener;
+package com.example.consumer2.listener;
 
-import com.example.consumer.bo.RocketmqConfig;
-import com.example.consumer.config.MyAllo;
-import com.example.consumer.socket.MyWebSocketServer2;
-import com.example.consumer.socket.MyWebSocketServer3;
+import com.example.consumer2.bo.RocketmqConfig;
+import com.example.consumer2.config.MyAllo;
+import com.example.consumer2.socket.MyWebSocketServer2;
+import com.example.consumer2.socket.MyWebSocketServer3;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
@@ -19,6 +19,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+
+
 
 @Component("orderL")
 public class OrderListener {
@@ -43,7 +45,7 @@ public class OrderListener {
                 try {
                     consumeOrderlyContext.setAutoCommit(true);
                     for (MessageExt messageExt : list) {
-                        System.out.println("顺序消费消息1: "
+                        System.out.println("顺序消费消息2: "
                                 + new String(messageExt.getBody())
                                 + "  " + "topic:" + messageExt.getTopic()
                                 + "   " + "tags:" + messageExt.getTags());

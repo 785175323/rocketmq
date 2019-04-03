@@ -7,9 +7,11 @@
     <groupId>com.kakuiwong.cn</groupId>
     <artifactId>rocketmq</artifactId>
     <version>1.0</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>consumer</module>
+        <module>consumer2</module>
         <module>producer</module>
     </modules>
 

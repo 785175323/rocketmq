@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.List;
 
 @Component("defalutL22")
@@ -32,23 +31,21 @@ public class DefaultListener2 {
         defaultMQPushConsumer.setMessageModel(MessageModel.BROADCASTING);
         defaultMQPushConsumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list,
+                    ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+                MyWebSocketServer2 next = null;
+                if (!CollectionUtils.isEmpty(MyWebSocketServer2.webSocketSet)) {
+                    next = MyWebSocketServer2.webSocketSet.iterator().next();
+                }
                 try {
-                    Thread.sleep(1000);
                     for (MessageExt messageExt : list) {
                         System.out.println("普通消费消息-广播模式2: "
                                 + new String(messageExt.getBody())
                                 + "  " + "topic:" + messageExt.getTopic()
                                 + "   " + "tags:" + messageExt.getTags());
-                        if (!CollectionUtils.isEmpty(MyWebSocketServer2.webSocketSet)) {
-                            MyWebSocketServer2.webSocketSet.forEach(w -> {
-                                try {
-                                    w.sendMessage(new String(messageExt.getBody()));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                        }
+                        if (next != null)
+                            next.sendMessage(new String(messageExt.getBody()));
+
                     }
                     return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                 } catch (Exception e) {
